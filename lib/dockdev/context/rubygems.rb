@@ -21,7 +21,7 @@ module Dockdev
         Dir.glob(File.join(@path,"Gemfile"))
       end
 
-      def process_mount(mount_hash)
+      def process_mount(mount_hash, dir_inside_docker = "/opt")
 
         if not mount_hash.nil? and mount_hash.is_a?(Hash)
 
@@ -35,7 +35,7 @@ module Dockdev
             if not d.source.nil?
               src = d.source
               if src.path.to_s != "."
-                mount_hash[d.name] = src.path.expand_path.to_s
+                mount_hash[src.path.expand_path.to_s] = File.join(dir_inside_docker, d.name)
                 #res[d.name] = src.path.expand_path.to_s
               end
             end
