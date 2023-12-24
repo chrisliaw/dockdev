@@ -47,7 +47,7 @@ module Dockdev
             end
           end
 
-          scriptOut = File.join(@path,"to-be-executed-inside-docker.sh") 
+          scriptOut = File.join(@path,"to-be-executed-once-inside-docker.sh") 
           File.open(scriptOut,"w") do |f|
             f.write script.join("\n")
           end
