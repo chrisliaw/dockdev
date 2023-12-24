@@ -27,7 +27,7 @@ module Dockdev
 
           script = ["#!/bin/bash"]
           #script << "alias be > /dev/null 2>&1 && echo 'alias be=bundle exec' >> ~/.bashrc"
-          script << "echo 'alias be=bundle exec' >> ~/.bashrc"
+          script << "echo 'alias be=\"bundle exec\"' >> ~/.bashrc"
 
           # 
           # looking at source code 
