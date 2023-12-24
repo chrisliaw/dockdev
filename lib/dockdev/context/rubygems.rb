@@ -26,7 +26,8 @@ module Dockdev
         if not mount_hash.nil? and mount_hash.is_a?(Hash)
 
           script = ["#!/bin/bash"]
-          script << "alias be > /dev/null 2>&1 && echo 'alias be=bundle exec' >> ~/.bashrc"
+          #script << "alias be > /dev/null 2>&1 && echo 'alias be=bundle exec' >> ~/.bashrc"
+          script << "echo 'alias be=bundle exec' >> ~/.bashrc"
 
           # 
           # looking at source code 
@@ -46,7 +47,7 @@ module Dockdev
             end
           end
 
-          scriptOut = File.join(@path,"to_be_executed_inside_docker.sh") 
+          scriptOut = File.join(@path,"to-be-executed-inside-docker.sh") 
           File.open(scriptOut,"w") do |f|
             f.write script.join("\n")
           end
