@@ -53,7 +53,7 @@ module Dockdev
           logger.debug "Mount points by context : #{mount}"
         end
 
-        img.new_container(cont.name, command: cmd) #, mounts: mount)
+        img.new_container(cont.name, command: cmd, mounts: mount)
       else
         raise Error, "\n No image and no Dockerfile found to build the image found. Operation aborted. \n\n".red
       end
