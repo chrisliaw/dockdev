@@ -1,0 +1,77 @@
+PATH
+  remote: .
+  specs:
+    dockdev (0.1.0)
+      docker-cli (~> 0.5.1)
+      teLogger (~> 0.2)
+      toolrack (~> 0.23)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (1.1.0)
+    diff-lcs (1.5.0)
+    docker-cli (0.5.1)
+      colorize
+      ptools
+      teLogger
+      toolrack (= 0.24.1)
+      tty-command
+      tty-prompt
+    git_cli (0.13.9)
+      ptools (~> 1.4.0)
+      teLogger (> 0.2)
+      toolrack (> 0.23)
+    pastel (0.8.0)
+      tty-color (~> 0.5)
+    ptools (1.4.3)
+    rake (13.1.0)
+    release-gem (0.3.3)
+      colorize (~> 1.1)
+      git_cli (~> 0.13)
+      pastel (~> 0.8)
+      teLogger (~> 0.2)
+      toolrack (~> 0.23)
+      tty-command (~> 0.10)
+      tty-prompt (~> 0.23)
+    rspec (3.12.0)
+      rspec-core (~> 3.12.0)
+      rspec-expectations (~> 3.12.0)
+      rspec-mocks (~> 3.12.0)
+    rspec-core (3.12.2)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.6)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-support (3.12.1)
+    teLogger (0.2.2)
+    toolrack (0.24.1)
+    tty-color (0.6.0)
+    tty-command (0.10.1)
+      pastel (~> 0.8)
+    tty-cursor (0.7.1)
+    tty-prompt (0.23.1)
+      pastel (~> 0.8)
+      tty-reader (~> 0.8)
+    tty-reader (0.9.0)
+      tty-cursor (~> 0.7)
+      tty-screen (~> 0.8)
+      wisper (~> 2.0)
+    tty-screen (0.8.2)
+    wisper (2.0.1)
+
+PLATFORMS
+  arm64-darwin-23
+  ruby
+
+DEPENDENCIES
+  dockdev!
+  rake (~> 13.0)
+  release-gem (~> 0.3.3)
+  rspec (~> 3.0)
+
+BUNDLED WITH
+   2.5.1

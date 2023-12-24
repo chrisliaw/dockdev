@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+# end result is there is one container created and
+# start will always go into that container until it is
+# destroy
+# Taking the vagrant model
+
+require_relative '../lib/dockdev'
+
+contName = ARGV.first || File.basename(Dir.getwd)
+cmd = ARGV[1]
+
+begin
+  Dockdev.with_running_container(contName, command: cmd, root: Dir.getwd)
+rescue StandardError => ex
+  STDERR.puts ex.message
+end
+
+
