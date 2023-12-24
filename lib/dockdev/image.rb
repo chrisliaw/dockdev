@@ -34,11 +34,16 @@ module Dockdev
         context_root: opts[:root],
         dockerfile: dockerfile
       }
-      res = @cmd_fact.build_image(@image_name, optss).run
-      if res.success? 
-        new_container(opts[:container_name], opts)
+      optss.merge!(opts)
+      @cmd_fact.build_image(@image_name, optss).run
+    end
+
+    def destroy
+      res = @cmd_fact.delete_image(@image_name).run
+      if res.success?
+        not res.is_out_stream_empty?
       else
-        raise Error, "Error triggered during find existing image : #{res.err_stream}"
+        raise Error, "Error triggered during deleting image : #{res.err_stream}"
       end
     end
 

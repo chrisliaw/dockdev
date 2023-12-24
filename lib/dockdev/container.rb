@@ -51,5 +51,23 @@ module Dockdev
 
     end
 
+    def stop
+      res = @cmd_fact.stop_container(@cont_name).run
+      if res.success?
+        not res.is_out_stream_empty?
+      else
+        raise Error, "Command stop container failed with error : #{res.err_stream}"
+      end
+    end
+
+    def destroy
+      res = @cmd_fact.delete_container(@cont_name).run
+      if res.success?
+        not res.is_out_stream_empty?
+      else
+        raise Error, "Command delete container failed with error : #{res.err_stream}"
+      end
+    end
+
   end
 end

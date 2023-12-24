@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+# end result is there is one container created and
+# start will always go into that container until it is
+# destroy
+# Taking the vagrant model
+
+require 'tty/prompt'
+require 'colorize'
+
+require_relative '../lib/dockdev'
+
+contName = ARGV.first || File.basename(Dir.getwd)
+
+begin
+  tty = TTY::Prompt.new
+
+  skip = tty.no? "Destroy development env '#{contName}'?"
+  if not skip
+    Dockdev.destroy(contName, root: Dir.getwd)
+    STDOUT.puts "\n Docker development environment destroy successfully\n\n".green
+  else
+    STDOUT.puts "\n Docker development environment destroy aborted\n\n".yellow
+  end
+rescue StandardError => ex
+  STDERR.puts ex.message.red
+end
+
+
