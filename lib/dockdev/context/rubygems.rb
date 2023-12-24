@@ -25,6 +25,9 @@ module Dockdev
 
         if not mount_hash.nil? and mount_hash.is_a?(Hash)
 
+          script = ["#!/bin/bash"]
+          script << "alias be > /dev/null 2>&1 && echo 'alias be=bundle exec' >> ~/.bashrc"
+
           # 
           # looking at source code 
           # https://github.com/rubygems/rubygems/blob/master/bundler/lib/bundler/shared_helpers.rb#L246
@@ -35,11 +38,19 @@ module Dockdev
             if not d.source.nil?
               src = d.source
               if src.path.to_s != "."
-                mount_hash[src.path.expand_path.to_s] = File.join(dir_inside_docker, d.name)
+                pathInsideDocker = File.join(dir_inside_docker, d.name)
+                mount_hash[src.path.expand_path.to_s] = pathInsideDocker
+                script << "bundle config --global local.#{d.name} #{pathInsideDocker}"
                 #res[d.name] = src.path.expand_path.to_s
               end
             end
           end
+
+          scriptOut = File.join(@path,"to_be_executed_inside_docker.sh") 
+          File.open(scriptOut,"w") do |f|
+            f.write script.join("\n")
+          end
+          `chmod +x #{scriptOut}`
 
         end
 
