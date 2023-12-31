@@ -38,22 +38,46 @@ module Dockdev
       wss = Workspace.new(ws)
       if img.has_image?
         mount = { root => File.join("/opt",File.basename(root)) }
-        if not ctx.nil?
-          mount = ctx.process_mount(mount)
-          logger.debug "Mount points by context : #{mount}"
+        port = {}
+        ctx.each do |cctx|
+          mnts = cctx.process_mount(dir_inside_docker: "/opt")
+          logger.debug "Mount points by context : #{mnts}"
+
+          mount.merge!(mnts) if not mnts.empty?
+
+          prt = cctx.process_port
+          port.merge!(prt) if not prt.empty?
+
+          logger.debug "Ports by context #{cctx} : #{prt}"
         end
 
-        img.new_container(cont.name, command: cmd, mounts: mount)
+        param = { command: cmd, mounts: mount }
+        param[:ports] = port if not port.empty? 
+
+        img.new_container(cont.name, param)
+
       elsif wss.has_dockerfile?
         img.build(wss.dockerfile)
         
         mount = { root => File.join("/opt",File.basename(root)) }
-        if not ctx.nil?
-          mount = ctx.process_mount(mount)
-          logger.debug "Mount points by context : #{mount}"
+        port = {}
+        ctx.each do |cctx|
+          mnt = cctx.process_mount(dir_inside_docker: "/opt")
+          mount.merge!(mnt) if not mnt.empty?
+
+          logger.debug "Mount points by context #{cctx} : #{mnt}"
+
+          prt = cctx.process_port
+          port.merge!(prt) if not prt.empty?
+
+          logger.debug "Ports by context #{cctx} : #{prt}"
         end
 
-        img.new_container(cont.name, command: cmd, mounts: mount)
+        param = { command: cmd, mounts: mount }
+        param[:ports] = port if not port.empty? 
+
+        img.new_container(cont.name, param)
+
       else
         raise Error, "\n No image and no Dockerfile found to build the image found. Operation aborted. \n\n".red
       end

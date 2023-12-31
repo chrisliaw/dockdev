@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "tty-prompt", "~> 0.23"
   spec.add_dependency "colorize", "~> 1.1"
+  spec.add_dependency "pastel", "~> 0.8"
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

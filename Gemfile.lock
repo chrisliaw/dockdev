@@ -4,6 +4,7 @@ PATH
     dockdev (0.3.5)
       colorize (~> 1.1)
       docker-cli (~> 0.5.1)
+      pastel (~> 0.8)
       teLogger (~> 0.2)
       toolrack (~> 0.23)
       tty-prompt (~> 0.23)

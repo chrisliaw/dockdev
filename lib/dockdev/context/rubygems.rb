@@ -11,6 +11,8 @@ module Dockdev
 
       def initialize(path)
         @path = path
+        @mounts = {}
+        @ports = {}
       end
 
       def is_context?
@@ -21,9 +23,11 @@ module Dockdev
         Dir.glob(File.join(@path,"Gemfile"))
       end
 
-      def process_mount(mount_hash, dir_inside_docker = "/opt")
+      def process_mount(opts = { dir_inside_docker: "/opt" })
 
-        if not mount_hash.nil? and mount_hash.is_a?(Hash)
+        if @mounts.empty?
+
+          dir_inside_docker = opts[:dir_inside_docker]
 
           script = ["#!/bin/bash"]
           #script << "alias be > /dev/null 2>&1 && echo 'alias be=bundle exec' >> ~/.bashrc"
@@ -40,7 +44,7 @@ module Dockdev
               src = d.source
               if src.path.to_s != "."
                 pathInsideDocker = File.join(dir_inside_docker, d.name)
-                mount_hash[src.path.expand_path.to_s] = pathInsideDocker
+                @mounts[src.path.expand_path.to_s] = pathInsideDocker
                 script << "bundle config --global local.#{d.name} #{pathInsideDocker}"
                 #res[d.name] = src.path.expand_path.to_s
               end
@@ -55,7 +59,12 @@ module Dockdev
 
         end
 
-        mount_hash
+        @mounts
+
+      end
+
+      def process_port(opts = {})
+        @ports
       end
 
     end

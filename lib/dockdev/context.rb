@@ -15,12 +15,11 @@ module Dockdev
       end
 
       def get_context(path)
-        ctx = nil
+        ctx = []
         @ctx.values.each do |v|
           vv = v.init_path(path)
           if vv.is_context?
-            ctx = vv
-            break
+            ctx << vv
           end
         end
         ctx
