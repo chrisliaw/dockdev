@@ -1,20 +1,9 @@
-GIT
-  remote: docker-cli
-  revision: a1f5582a6075a1a1c5fc1450c726b4a9ba7ff8f0
-  branch: master
-  specs:
-    docker-cli (0.5.1)
-      colorize
-      ptools
-      teLogger
-      tty-command
-      tty-prompt
-
 PATH
   remote: .
   specs:
     dockdev (0.3.6)
       colorize (~> 1.1)
+      docker-cli (~> 0.5.1)
       pastel (~> 0.8)
       teLogger (~> 0.2)
       toolrack (~> 0.23)
@@ -25,6 +14,12 @@ GEM
   specs:
     colorize (1.1.0)
     diff-lcs (1.5.0)
+    docker-cli (0.5.1)
+      colorize
+      ptools
+      teLogger
+      tty-command
+      tty-prompt
     git_cli (0.13.9)
       ptools (~> 1.4.0)
       teLogger (> 0.2)
@@ -76,7 +71,6 @@ PLATFORMS
 
 DEPENDENCIES
   dockdev!
-  docker-cli!
   rake (~> 13.0)
   release-gem (~> 0.3.3)
   rspec (~> 3.0)

@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "teLogger", "~> 0.2"
   spec.add_dependency "toolrack", "~> 0.23"
 
-  #spec.add_dependency "docker-cli", "~> 0.5.1"
+  spec.add_dependency "docker-cli", "~> 0.5.1"
 
   spec.add_dependency "tty-prompt", "~> 0.23"
   spec.add_dependency "colorize", "~> 1.1"
