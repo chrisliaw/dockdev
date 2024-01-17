@@ -3,7 +3,7 @@ PATH
   specs:
     dockdev (0.3.7)
       colorize (~> 1.1)
-      docker-cli (~> 0.5.1)
+      docker-cli (~> 0.5.2)
       pastel (~> 0.8)
       teLogger (~> 0.2)
       toolrack (~> 0.23)
@@ -14,12 +14,13 @@ GEM
   specs:
     colorize (1.1.0)
     diff-lcs (1.5.0)
-    docker-cli (0.5.1)
-      colorize
-      ptools
-      teLogger
-      tty-command
-      tty-prompt
+    docker-cli (0.5.2)
+      colorize (~> 1.1)
+      ptools (~> 1.4.3)
+      teLogger (~> 0.2)
+      toolrack (~> 0.24.2)
+      tty-command (~> 0.10.1)
+      tty-prompt (~> 0.23)
     git_cli (0.13.9)
       ptools (~> 1.4.0)
       teLogger (> 0.2)
@@ -50,7 +51,7 @@ GEM
       rspec-support (~> 3.12.0)
     rspec-support (3.12.1)
     teLogger (0.2.2)
-    toolrack (0.24.1)
+    toolrack (0.24.2)
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)
