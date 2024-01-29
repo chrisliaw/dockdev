@@ -12,11 +12,27 @@ module Dockdev
     end
 
     def has_dockerfile?
-      Dir.glob(File.join(@root,"Dockerfile")).length > 0
+      found_dockerfile_count > 0
+    end
+
+    def found_dockerfile_count
+      dockerfiles.length 
+    end
+
+    def has_multiple_dockerfiles?
+      found_dockerfile_count > 1
+    end
+
+    def dockerfiles
+      Dir.glob(File.join(@root,"Dockerfile*"))
     end
 
     def dockerfile
-      Dir.glob(File.join(@root,"Dockerfile")).first
+      if has_dockerfile?
+        dockerfiles.first
+      else
+        nil
+      end
     end
 
     def has_docker_compose?

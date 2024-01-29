@@ -14,12 +14,26 @@ module Dockdev
         @ctx[name] = cls
       end
 
+      def registered_context
+        @ctx.keys.freeze
+      end
+
+      def registered_context_by_name(name, path)
+        ctx = @ctx[id]
+        if not ctx.nil?
+          ctx.init_path(path) 
+        end
+
+        ctx
+      end
+
       def get_context(path)
-        ctx = []
-        @ctx.values.each do |v|
+        ctx = {}
+        @ctx.each do |k, v|
           vv = v.init_path(path)
           if vv.is_context?
-            ctx << vv
+            #ctx << vv
+            ctx[k] = vv
           end
         end
         ctx

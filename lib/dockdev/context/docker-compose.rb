@@ -88,14 +88,20 @@ module Dockdev
         [@mounts, @ports]
       end
 
-      def process_mount(opts = {}, &block)
-        mounts, _ = parse_docker_compose
-        mounts
-      end
+      def apply_context(dockdev_config)
+        ddConf = dockdev_config
+        
+        if not ddConf.nil?
+          mounts, ports = parse_docker_compose
+          mounts.each do |host, docker|
+            ddConf.add_mount(host, docker)
+          end
+          ports.each do |host, docker|
+            ddConf.add_port(host, docker)
+          end
+        end
 
-      def process_port(opts = {}, &block)
-        _, ports = parse_docker_compose
-        ports
+        ddConf
       end
 
       private
