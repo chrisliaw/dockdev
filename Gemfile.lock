@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dockdev (0.4.0)
+    dockdev (0.4.1)
       colorize (~> 1.1)
       docker-cli (~> 0.5.2)
       pastel (~> 0.8)
