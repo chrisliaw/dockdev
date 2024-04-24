@@ -53,9 +53,11 @@ module Dockdev
         dockerfile: dockerfilePath
       }
       optss.merge!(opts)
-      @cmd_fact.build_image(@image_name, optss).run
+      res = @cmd_fact.build_image(@image_name, optss).run
 
       FileUtils.rm(generated_dockerfile) if File.exist?(generated_dockerfile) and not is_keep_generated_dockerfile?
+
+      res
 
     end
 

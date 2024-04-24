@@ -15,6 +15,8 @@ require_relative 'dockdev/container'
 
 require_relative 'dockdev/dockdev_config'
 
+require_relative 'dockdev/user_config'
+
 module Dockdev
   include TR::CondUtils
 
@@ -26,9 +28,11 @@ module Dockdev
 
     pmt = TTY::Prompt.new
     root = opts[:root]
-    cmd = opts[:command]
+    cmd = opts[:command] || ""
 
     ddConf = load_config(root)
+
+    user_config = opts[:user_config]
 
     cont = Container.new(contName)
     if cont.has_container?
@@ -50,6 +54,10 @@ module Dockdev
 
       # root directory is mounted by default
       ddConf.add_mount(root, File.join(ddConf.workdir,File.basename(root)))
+
+      if user_config.has_key?(:network)
+        ddConf.network = user_config.network
+      end
 
       ctx = Dockdev::Context::ContextManager.instance.get_context(root)
       logger.debug("Found context : #{ctx}")
@@ -109,6 +117,20 @@ module Dockdev
       # Proceed to create container
 
       param = { command: cmd, mounts: ddConf.mounts, ports: ddConf.ports }
+      if not_empty?(ddConf.network)
+        cmd_fact = Docker::Cli::CommandFactory.new
+        res = cmd_fact.create_network(ddConf.network).run
+        if res.success? and not res.is_out_stream_empty?
+          param[:network] = ddConf.network 
+        else
+          err = res.err_stream
+          if err =~ /already exist/
+            param[:network] = ddConf.network 
+          else
+            raise Error, "\n Failed to create network. Error was : #{res.err_stream}\n"
+          end
+        end
+      end
       img.new_container(cont.name, param)
 
       #if img.has_image?

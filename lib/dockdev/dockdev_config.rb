@@ -58,6 +58,7 @@ module Dockdev
 
     # for container
     attr_reader :mounts, :ports
+    attr_accessor :network
     
     # for image
     attr_reader :dockerfile_entries
@@ -69,6 +70,7 @@ module Dockdev
     def initialize(val = {})
       @mounts = val[:mounts] || {}
       @ports = val[:ports] || {}
+      @network = val[:network] || nil
       @dockerfile_entries = val[:dockerfile_entries] || []
       @workdir = val[:workdir] || "/opt"
       @skip_context = val[:skip_context] || []

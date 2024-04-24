@@ -7,11 +7,16 @@
 
 require_relative '../lib/dockdev'
 
-contName = ARGV.first || File.basename(Dir.getwd)
-cmd = ARGV[1]
+#contName = ARGV.first || File.basename(Dir.getwd)
+#cmd = ARGV[1]
+#input = ARGV[1]
+
+uconf = Dockdev::UserConfig.new(ARGV.first)
+contName = uconf.container_name || File.basename(Dir.getwd)
 
 begin
-  Dockdev.with_running_container(contName, command: cmd, root: Dir.getwd)
+  #Dockdev.with_running_container(contName, command: cmd, root: Dir.getwd)
+  Dockdev.with_running_container(contName, user_config: uconf, root: Dir.getwd)
 rescue StandardError => ex
   STDERR.puts ex.message
   STDERR.puts ex.backtrace.join("\n")

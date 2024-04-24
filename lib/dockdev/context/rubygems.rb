@@ -43,7 +43,7 @@ module Dockdev
               if not d.source.nil?
                 src = d.source
                 if src.path.to_s != "."
-                  pathInsideDocker = File.join(dir_inside_docker, d.name)
+                  pathInsideDocker = File.join(ddConf.workdir, d.name)
                   ddConf.add_mount(src.path.expand_path.to_s,pathInsideDocker)
                   # following line assumed 'bundle' program already installed inside the image
                   cmd << "bundle config --global local.#{d.name} #{pathInsideDocker}"
