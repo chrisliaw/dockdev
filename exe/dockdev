@@ -14,6 +14,8 @@ require_relative '../lib/dockdev'
 uconf = Dockdev::UserConfig.new(ARGV.first)
 contName = uconf.container_name || File.basename(Dir.getwd)
 
+contName = contName.downcase
+
 begin
   #Dockdev.with_running_container(contName, command: cmd, root: Dir.getwd)
   Dockdev.with_running_container(contName, user_config: uconf, root: Dir.getwd)
